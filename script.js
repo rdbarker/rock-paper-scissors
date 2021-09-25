@@ -76,8 +76,3 @@ function game(){
 
 let humanScore = 0;
 let computerScore = 0;
-game()
-game()
-game()
-game()
-game()
