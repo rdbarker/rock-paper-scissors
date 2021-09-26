@@ -36,8 +36,8 @@ function getWinner(humanChoice,computerChoice){  //return a winner, output is ei
             if (computerChoice==="scissors") return "computer";
             if (computerChoice==="paper") return "tie";
         case "scissors":
-            if (computerChoice==="rock") return "human";
-            if (computerChoice==="paper") return "computer";
+            if (computerChoice==="paper") return "human";
+            if (computerChoice==="rock") return "computer";
             if (computerChoice==="scissors") return "tie";    
         default:
             console.log("error comparing results");       
@@ -59,8 +59,8 @@ function updateScore(winner,humanChoice,computerChoice){
     }
 }
 function checkForGameWinner(){
-    if (humanScore === 5) return "human";
-    else if (computerScore === 5) return "computer";
+    if (humanScore == 5) return "human";
+    else if (computerScore == 5) return "computer";
     else return false;
 }
 function updateComputerChoice(computerChoice){
