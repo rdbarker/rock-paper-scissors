@@ -1,33 +1,13 @@
-function getInput(text){     //returns prompt in lowercase only
-    const input = window.prompt(text,"");
-    return input.toLowerCase();
+function playGame(){
+    const humanChoice = this.dataset["choice"];
+    const computerChoice = getComputerChoice();
+    const winner = getWinner(humanChoice,computerChoice);
+    updateScore(winner,humanChoice,computerChoice);
+    updateComputerChoice(computerChoice);
 }
-
-function validateInput(){  //returns only a valid answer, keeps prompting until one is given.
-    let notValidated = true;
-    let answer = getInput("Rock, Paper or Scissors?");
-    while(notValidated){
-        switch(answer){
-            case "rock":
-                notValidated = false;
-                break;
-            case "scissors":
-                notValidated = false;
-                break;
-            case "paper":
-                notValidated = false;
-                break;
-            default:
-                answer = getInput("Sorry! Only pick Rock, Paper or Scissors!");
-        }
-        return answer;
-    }
-}
-
 function getRandomInt(max) {  //return random int to max number
     return Math.floor(Math.random() * max);
   }
-
 function getComputerChoice(){  //return rock paper or scissors based on a random number
     const number = getRandomInt(3);
     switch(number){
@@ -45,7 +25,6 @@ function getComputerChoice(){  //return rock paper or scissors based on a random
             console.log("computer pick error");
     }
 }
-
 function getWinner(humanChoice,computerChoice){  //return a winner, output is either "computer", "human" or "tie"
     switch (humanChoice){
         case "rock":
@@ -64,15 +43,30 @@ function getWinner(humanChoice,computerChoice){  //return a winner, output is ei
             console.log("error comparing results");       
     }
 }
-
-function game(){
-    const humanChoice = validateInput();
-    const computerChoice = getComputerChoice();
-    const winner = getWinner(humanChoice,computerChoice);
-    if (winner === "computer") ++computerScore;
-    else if (winner === "human") ++humanScore;
-    console.log(`${humanChoice} vs ${computerChoice}....${winner}! ${humanScore}-${computerScore}` ) 
+function updateScore(winner,humanChoice,computerChoice){
+    if (winner==="human") {
+        humanScore+=1
+        winnerDiv.innerHTML=`Nice! ${humanChoice} beat ${computerChoice}`;
+    }
+    else{
+        computerScore+=1;
+    }
 }
-
+function checkForWinner(){
+    if (humanScore === 5) return "human";
+    else if (computerScore === 5) return "computer";
+    else return false;
+}
+function updateComputerChoice(computerChoice){
+    document.querySelectorAll(".computer-buttons button").forEach(
+        button => button.classList.remove("show-button"));
+    document.querySelector(`.computer-buttons button[data-choice="${computerChoice}"]`).classList.add("show-button");
+}
 let humanScore = 0;
 let computerScore = 0;
+const humanButtons = document.querySelectorAll(".human-buttons button");
+const computerButtons = document.querySelectorAll(".human-buttons button");
+const winnerDiv = document.querySelector("div.winner");
+const humanScoreDiv = document.querySelector(".human-score");
+const computerScoreDiv = document.querySelector(".computer-score");
+humanButtons.forEach(button =>button.addEventListener('click',playGame));

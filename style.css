@@ -49,3 +49,6 @@
 .computer-buttons button{
     background-color: black;
 }
+button.show-button{
+    background-color:aqua;
+}
