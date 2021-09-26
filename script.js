@@ -46,13 +46,19 @@ function getWinner(humanChoice,computerChoice){  //return a winner, output is ei
 function updateScore(winner,humanChoice,computerChoice){
     if (winner==="human") {
         humanScore+=1
-        winnerDiv.innerHTML=`Nice! ${humanChoice} beat ${computerChoice}`;
+        humanScoreDiv.innerHTML = humanScore;
+        if (checkForGameWinner) winnerDiv.innerHTML=`Nice! ${humanChoice} beat ${computerChoice}`;
+    }
+    else if (winner==="computer"){
+        computerScore+=1;
+        computerScoreDiv.innerHTML = computerScore;
+        if (checkForGameWinner) winnerDiv.innerHTML=`Dang! ${computerChoice} beat ${humanChoice}`;
     }
     else{
-        computerScore+=1;
+        winnerDiv.innerHTML=`It's a tie!`;
     }
 }
-function checkForWinner(){
+function checkForGameWinner(){
     if (humanScore === 5) return "human";
     else if (computerScore === 5) return "computer";
     else return false;
