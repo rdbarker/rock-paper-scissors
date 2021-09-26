@@ -49,7 +49,6 @@ function updateScore(winner,humanChoice,computerChoice){
     if (winner==="human") {
         humanScore+=1
         humanScoreDiv.innerHTML = humanScore;
-        console.log(checkForGameWinner())
         if (!checkForGameWinner()) {
             winnerDiv.innerHTML=`Nice! ${humanChoice} beat ${computerChoice}`;
         }
@@ -59,10 +58,8 @@ function updateScore(winner,humanChoice,computerChoice){
     else if (winner==="computer"){
         computerScore+=1;
         computerScoreDiv.innerHTML = computerScore;
-        console.log(checkForGameWinner())
         if (!checkForGameWinner()){
             winnerDiv.innerHTML=`Dang! ${computerChoice} beat ${humanChoice}`;
-            console.log("fired");
         } 
         else winnerDiv.innerHTML="Better Luck Next Time!";
     }
@@ -76,9 +73,19 @@ function checkForGameWinner(){
     else return false;
 }
 function updateComputerChoice(computerChoice){
+    clearButtons();
+    document.querySelector(`.computer-buttons button[data-choice="${computerChoice}"]`).classList.add("show-button");
+}
+function resetScore(){
+    humanScore = 0;
+    computerScore = 0;
+    humanScoreDiv.innerHTML = humanScore;
+    computerScoreDiv.innerHTML = computerScore;
+    clearButtons();
+}
+function clearButtons() {
     document.querySelectorAll(".computer-buttons button").forEach(
         button => button.classList.remove("show-button"));
-    document.querySelector(`.computer-buttons button[data-choice="${computerChoice}"]`).classList.add("show-button");
 }
 let humanScore = 0;
 let computerScore = 0;
@@ -87,4 +94,8 @@ const computerButtons = document.querySelectorAll(".human-buttons button");
 const winnerDiv = document.querySelector("div.winner");
 const humanScoreDiv = document.querySelector(".human-score");
 const computerScoreDiv = document.querySelector(".computer-score");
+const resetButton = document.querySelector(".reset-button button");
 humanButtons.forEach(button =>button.addEventListener('click',playGame));
+resetButton.addEventListener("click",resetScore);
+
+
