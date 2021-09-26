@@ -1,9 +1,11 @@
 function playGame(){
-    const humanChoice = this.dataset["choice"];
-    const computerChoice = getComputerChoice();
-    const winner = getWinner(humanChoice,computerChoice);
-    updateScore(winner,humanChoice,computerChoice);
-    updateComputerChoice(computerChoice);
+    if (!checkForGameWinner()){
+        const humanChoice = this.dataset["choice"];
+        const computerChoice = getComputerChoice();
+        const winner = getWinner(humanChoice,computerChoice);
+        updateScore(winner,humanChoice,computerChoice);
+        updateComputerChoice(computerChoice);
+    }
 }
 function getRandomInt(max) {  //return random int to max number
     return Math.floor(Math.random() * max);
@@ -47,12 +49,22 @@ function updateScore(winner,humanChoice,computerChoice){
     if (winner==="human") {
         humanScore+=1
         humanScoreDiv.innerHTML = humanScore;
-        if (checkForGameWinner) winnerDiv.innerHTML=`Nice! ${humanChoice} beat ${computerChoice}`;
+        console.log(checkForGameWinner())
+        if (!checkForGameWinner()) {
+            winnerDiv.innerHTML=`Nice! ${humanChoice} beat ${computerChoice}`;
+        }
+        else winnerDiv.innerHTML="YOU WIN!";
+        
     }
     else if (winner==="computer"){
         computerScore+=1;
         computerScoreDiv.innerHTML = computerScore;
-        if (checkForGameWinner) winnerDiv.innerHTML=`Dang! ${computerChoice} beat ${humanChoice}`;
+        console.log(checkForGameWinner())
+        if (!checkForGameWinner()){
+            winnerDiv.innerHTML=`Dang! ${computerChoice} beat ${humanChoice}`;
+            console.log("fired");
+        } 
+        else winnerDiv.innerHTML="Better Luck Next Time!";
     }
     else{
         winnerDiv.innerHTML=`It's a tie!`;
